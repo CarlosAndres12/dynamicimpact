@@ -1,0 +1,45 @@
+---
+title: "Vector_Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vector_Model}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
+             "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center",
+  eval = !is_check, purl = !is_check
+)
+```
+
+```{r setup}
+library(dynamicimpact)
+```
+
+Example using simulated vector data, with start time $T_0 = 097$.
+
+```{r}
+data("X_vector", package="dynamicimpact")
+data("X_vector", package="dynamicimpact")
+
+result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector, 
+                            event_initial=97, credibility_level=0.89)
+                            
+                            
+plot(result)
+```
+
+```{r}
+expand.grid(paste0("R", 1:3), paste0("C", 1:2)) |> 
+  data.frame() |> dplyr::mutate(elem = paste0(Var1, "-", Var2 ) ) |> 
+  dplyr::pull(elem) |> 
+  matrix(nrow=3,byrow = F)
+```
+

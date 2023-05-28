@@ -1,0 +1,114 @@
+---
+title: "build_package"
+format: html
+editor: visual
+---
+
+```{r}
+load("/run/media/carlos/data_2_openwrt/tesis/dynamicimpactR/data/X_matrix.rda")
+load("/run/media/carlos/data_2_openwrt/tesis/dynamicimpactR/data/X_vector.rda")
+load("/run/media/carlos/data_2_openwrt/tesis/dynamicimpactR/data/Y_matrix.rda")
+load("/run/media/carlos/data_2_openwrt/tesis/dynamicimpactR/data/Y_vector.rda")
+
+usethis::use_data(X_matrix, overwrite = T)
+usethis::use_data(X_vector, overwrite = T)
+usethis::use_data(Y_matrix, overwrite = T)
+usethis::use_data(Y_vector, overwrite = T)
+
+```
+
+```{r}
+
+```
+
+```{r}
+usethis::use_vignette("Vector_Model")
+usethis::use_vignette("Matrix_Model")
+```
+
+```{r}
+
+usethis::use_build_ignore(c("vignettes/example_data", 
+                            "./build_package.qmd", 
+                            "build_package.qmd",
+                            "CRAN-SUBMISSION",
+                            "cran-comments.md"))
+
+devtools::clean_dll()
+pkgbuild::compile_dll()
+try(roxygen2::roxygenize(), silent = TRUE)
+# devtools::install(".", upgrade = "never")
+devtools::install(".", upgrade = "never", quiet = TRUE)
+
+devtools::build(vignettes =TRUE, manual=TRUE)
+
+# devtools::build(vignettes =TRUE, manual=TRUE)
+```
+
+```{r}
+devtools::install(".", upgrade = "never", quiet = TRUE)
+```
+
+
+```{r}
+devtools::clean_dll()
+```
+
+```{r}
+devtools::install(".", upgrade = "never")
+```
+
+```{r}
+devtools::check(".", cran=TRUE, run_dont_test=TRUE, vignettes=F)
+```
+
+```{r}
+# devtools::submit_cran(), esta no valida
+devtools::release()
+```
+
+```{r}
+devtools::spell_check()
+```
+
+```{r}
+devtools::check_win_devel()
+```
+
+```{r}
+devtools::clean_vignettes()
+```
+
+```{r}
+devtools::check_rhub()
+```
+
+```{bash}
+rm -r /home/carlos/R/x86_64-pc-linux-gnu-library/4.2/dynamicimpact
+```
+```{bash}
+rm -r /home/carlos/.local/share/rstudio/sessions/active
+```
+
+
+```{r}
+devtools::install(".", upgrade = "never", quiet = TRUE)
+```
+
+
+```{r}
+library(dynamicimpact)
+
+data("X_vector", package="dynamicimpact")
+data("X_vector", package="dynamicimpact")
+
+result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector, 
+                            evolution_scale = 1,
+                            observation_scale = 1,
+                            scale = TRUE,
+                            event_initial=97, credibility_level=0.89)
+                            
+                            
+plot(result)
+```
+

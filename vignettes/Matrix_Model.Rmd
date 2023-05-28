@@ -1,0 +1,34 @@
+---
+title: "Matrix_Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Matrix_Model}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
+             "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center",
+  eval = !is_check, purl = !is_check
+)
+```
+
+```{r setup}
+library(dynamicimpact)
+```
+
+Example using simulated matrix data, with start time $T_0 = 097$.
+
+```{r}
+data("X_matrix", package="dynamicimpact")
+data("Y_matrix", package="dynamicimpact")
+
+result <- ImpactModelMatrix(X_data=X_matrix, Y_data=Y_matrix, event_initial=97, credibility_level=0.89)
+```
+
