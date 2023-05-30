@@ -190,9 +190,9 @@
 #' @name ImpactModelVector
 #' @title ImpactModelVector
 #' @description
-#' This function creates models in which \code{Y_data[t,]} is a
+#' This function creates models in which \code{Y_data_t} is a
 #' vector with \code{q} elements The posterior distribution for this
-#' model is approximated using \code(stan).
+#' model is approximated using \code{stan}.
 #' @references
 #' \insertRef{quintana1987multivariate}{dynamicimpact}
 #'
@@ -211,8 +211,11 @@
 #' @param  n_chains: number of chains for MCMC, default 4.
 #' @param  n_cores: number of cores used in MCMC, default 4.
 #' @param  thin: thinning used in MCMC, default 1.
+#' @param  evolution_scale: scale parameter for the evolution.
+#' @param  observation_scale: scale parameter for the observation.
+#' @param  use_cholesky: use the multivariate normal distribution in terms of cholesky matrix.
 #' @param log_transform: make \code{Y_data = log(Y_data)} during the fit, the transformation will be reversed for the final result. It will force force the posterior of the predictive distribution to be positive.
-#' @param scale: standardize \code(Y_data) during the fit, the transformation will be reversed for the final result.
+#' @param scale: standardize \code{Y_data} during the fit, the transformation will be reversed for the final result.
 #' @param force_positive: It will a use a truncated normal distribution with lower limit at zero, the mean of \code{Y_data} will transformed using \code{ReLU}.
 #' @param dates: An optional vector of dates only use for plotting.
 #' @return An object containing the the fitted \code{stan} model the extracted data from the chains
@@ -220,7 +223,8 @@
 #' \donttest{
 #' data("X_vector", package="dynamicimpact")
 #' data("Y_vector", package="dynamicimpact")
-#' result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector, event_initial=97, credibility_level=0.89)
+#' result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector,
+#'                             event_initial=97, credibility_level=0.89)
 #'
 #' }
 #' @export
@@ -295,9 +299,9 @@ ImpactModelVector <- function(X_data,
 #' @name ImpactModelMatrix
 #' @title ImpactModelMatrix
 #' @description
-#' This function creates models in which \code{Y_data[t,,]} is a
-#' matrix with \code{r} rows and \q{columns}, The posterior distribution for this
-#' model is approximated using \code(stan).
+#' This function creates models in which \code{Y_data_t} is a
+#' matrix with \code{r} rows and \code{q} columns, The posterior distribution for this
+#' model is approximated using \code{stan}.
 #' @references
 #' \insertRef{quintana1987multivariate}{dynamicimpact}
 #'
@@ -317,14 +321,15 @@ ImpactModelVector <- function(X_data,
 #' @param  n_cores: number of cores used in MCMC, default 4.
 #' @param  thin: thinning used in MCMC, default 1.
 #' @param log_transform: make \code{Y_data = log(Y_data)} during the fit, the transformation will be reversed for the final result. It will force force the posterior of the predictive distribution to be positive.
-#' @param scale: standardize \code(Y_data) during the fit, the transformation will be reversed for the final result.
+#' @param scale: standardize \code{Y_data} during the fit, the transformation will be reversed for the final result.
 #' @param dates: An optional vector of dates only use for plotting.
 #' @return An object containing the the fitted stan model the extracted data from the chains
 #' @examples
 #' \donttest{
 #' data("X_matrix", package="dynamicimpact")
 #' data("Y_matrix", package="dynamicimpact")
-#' result <- ImpactModelMatrix(X_data=X_matrix, Y_data=Y_matrix, event_initial=97, credibility_level=0.89)
+#' result <- ImpactModelMatrix(X_data=X_matrix, Y_data=Y_matrix,
+#'                             event_initial=97, credibility_level=0.89)
 #'
 #' }
 #' @export

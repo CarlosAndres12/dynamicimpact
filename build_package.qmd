@@ -46,6 +46,11 @@ devtools::build(vignettes =TRUE, manual=TRUE)
 ```
 
 ```{r}
+devtools::build_manual(pkg = ".", path = NULL)
+```
+
+
+```{r}
 devtools::install(".", upgrade = "never", quiet = TRUE)
 ```
 
@@ -102,13 +107,17 @@ library(dynamicimpact)
 data("X_vector", package="dynamicimpact")
 data("X_vector", package="dynamicimpact")
 
-result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector, 
+result <- ImpactModelVector(X_data=cbind(1, X_vector), Y_data=Y_vector, 
                             evolution_scale = 1,
                             observation_scale = 1,
-                            scale = TRUE,
+                            scale = FALSE,
                             event_initial=97, credibility_level=0.89)
                             
                             
 plot(result)
+```
+
+```{r}
+dynamicimpact:::plot.impact_vector_model(result)
 ```
 

@@ -324,12 +324,13 @@
 
 
 
-#' @name plot.model_impact_vector
-#' @title plot.model_impact_vector
+#' @name plot.impact_vector_model
+#' @title plot.impact_vector_model
 #' @description
-#  plot a fitted model
+#' plot a fitted model.
+#'
 #' @details
-#' plots \code(ImpactModelVector) object.
+#' plots \code{ImpactModelVector} object.
 #'
 #' @param  x: fitted model.
 #' @param  plot_variable: variable to be plotted use \code{"global"} for the aggregated result
@@ -339,11 +340,12 @@
 #' \donttest{
 #' data("X_vector", package="dynamicimpact")
 #' data("Y_vector", package="dynamicimpact")
-#' result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector, event_initial=97, credibility_level=0.89)
+#' result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector,
+#'                             event_initial=97, credibility_level=0.89)
 #' plot(result)
 #' }
 #' @export
-plot.model_impact_vector <- function(x,
+plot.impact_vector_model <- function(x,
                                      plot_variable="global",
                                      break_dates=NULL , ...) {
 
@@ -364,6 +366,38 @@ plot.model_impact_vector <- function(x,
     dates_df=x$dates,
     break_dates = break_dates
   )
+
+
+}
+
+#' @name plot.impact_vector_model_cholesky
+#' @title plot.impact_vector_model_cholesky
+#' @description
+#' plot a fitted model.
+#'
+#' @details
+#' plots \code{ImpactModelVector} object.
+#'
+#' @param  x: fitted model.
+#' @param  plot_variable: variable to be plotted use \code{"global"} for the aggregated result
+#' @param  break_dates: vector of breaks for the x axis.
+#' @return A \code{ggplot2} object
+#' @examples
+#' \donttest{
+#' data("X_vector", package="dynamicimpact")
+#' data("Y_vector", package="dynamicimpact")
+#' result <- ImpactModelVector(X_data=X_vector,
+#'                             Y_data=Y_vector, event_initial=97,
+#'                             credibility_level=0.89, use_cholesky=TRUE)
+#' plot(result)
+#' }
+#' @export
+plot.impact_vector_model_cholesky <- function(x,
+                                     plot_variable="global",
+                                     break_dates=NULL , ...) {
+
+
+  plot.impact_vector_model(x=x, plot_variable=plot_variable, break_dates=break_dates)
 
 
 }

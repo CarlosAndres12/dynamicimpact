@@ -34,7 +34,7 @@ MATRIX_MODEL <-  "matrix_model"
     "extracted_data" = extracted_data
   )
 
-  attr(result, "class") <- paste0("model_impact_", model_type)
+  attr(result, "class") <- paste0("impact_", model_type)
 
 
   return(result)

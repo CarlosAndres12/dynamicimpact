@@ -12,10 +12,14 @@
 #' @useDynLib dynamicimpact, .registration = TRUE
 #' @import methods
 #' @import Rcpp
+#' @importFrom rstan sampling
+#' @importFrom Rdpack reprompt
+#' @import mathjaxr
+#' @import stats
+#' @import utils
 #' @import dplyr
 #' @import tidyr
 #' @import ggplot2
-#' @importFrom rstan sampling
 #'
 #' @references
 #' Stan Development Team (2023). RStan: the R interface to Stan. R package version 2.21.8. https://mc-stan.org

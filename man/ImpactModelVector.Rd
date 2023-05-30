@@ -8,14 +8,17 @@ ImpactModelVector(
   X_data,
   Y_data,
   event_initial,
-  variables_names,
   credibility_level,
+  evolution_scale = 1,
+  observation_scale = 1,
+  use_cholesky = FALSE,
+  variables_names = NULL,
   n_simul = 2000,
   n_chains = 4,
   n_cores = 4,
   thin = 1,
   log_transform = FALSE,
-  scale = TRUE,
+  scale = FALSE,
   force_positive = FALSE,
   dates = NULL
 )
@@ -27,9 +30,9 @@ ImpactModelVector(
 
 \item{event_initial:}{The time when the event starts.}
 
-\item{variables_names:}{name of each of the components of vector (only used in plots).}
-
 \item{credibility_level:}{level of the credible interval.}
+
+\item{variables_names:}{name of each of the components of vector (only used in plots).}
 
 \item{n_simul:}{number of the iteration for MCMC, half of the iteration will be burned, default 2000.}
 
@@ -39,9 +42,15 @@ ImpactModelVector(
 
 \item{thin:}{thinning used in MCMC, default 1.}
 
+\item{evolution_scale:}{scale parameter for the evolution.}
+
+\item{observation_scale:}{scale parameter for the observation.}
+
+\item{use_cholesky:}{use the multivariate normal distribution in terms of cholesky matrix.}
+
 \item{log_transform:}{make \code{Y_data = log(Y_data)} during the fit, the transformation will be reversed for the final result. It will force force the posterior of the predictive distribution to be positive.}
 
-\item{scale:}{standardize \code(Y_data) during the fit, the transformation will be reversed for the final result.}
+\item{scale:}{standardize \code{Y_data} during the fit, the transformation will be reversed for the final result.}
 
 \item{force_positive:}{It will a use a truncated normal distribution with lower limit at zero, the mean of \code{Y_data} will transformed using \code{ReLU}.}
 
@@ -51,9 +60,9 @@ ImpactModelVector(
 An object containing the the fitted \code{stan} model the extracted data from the chains
 }
 \description{
-This function creates models in which \code{Y_data[t,]} is a
+This function creates models in which \code{Y_data_t} is a
 vector with \code{q} elements The posterior distribution for this
-model is approximated using \code(stan).
+model is approximated using \code{stan}.
 }
 \details{
 Create a new \code{ImpactModelVector} object.
@@ -62,7 +71,8 @@ Create a new \code{ImpactModelVector} object.
 \donttest{
 data("X_vector", package="dynamicimpact")
 data("Y_vector", package="dynamicimpact")
-result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector, event_initial=97, credibility_level=0.89)
+result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector,
+                            event_initial=97, credibility_level=0.89)
 
 }
 }

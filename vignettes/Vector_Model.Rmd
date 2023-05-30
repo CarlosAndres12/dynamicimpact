@@ -25,7 +25,7 @@ library(dynamicimpact)
 
 Example using simulated vector data, with start time $T_0 = 097$.
 
-```{r}
+```{r, fig.width = 8, fig.height = 7}
 data("X_vector", package="dynamicimpact")
 data("X_vector", package="dynamicimpact")
 
@@ -34,12 +34,5 @@ result <- ImpactModelVector(X_data=X_vector, Y_data=Y_vector,
                             
                             
 plot(result)
-```
-
-```{r}
-expand.grid(paste0("R", 1:3), paste0("C", 1:2)) |> 
-  data.frame() |> dplyr::mutate(elem = paste0(Var1, "-", Var2 ) ) |> 
-  dplyr::pull(elem) |> 
-  matrix(nrow=3,byrow = F)
 ```
 
